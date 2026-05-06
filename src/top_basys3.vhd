@@ -225,7 +225,7 @@ clock_divider_inst : clock_divider
 
 --invisible mux
 w_o_sign_mux  <=  "1111111" when (w_o_sign = '0') else
-                  "1111110" when (w_o_sign = '1');
+                  "0111111" when (w_o_sign = '1');
 
 --twos comp
 w_i_bin_mux   <=  reg_A_val when (w_o_cycle = "0010") else
@@ -248,6 +248,9 @@ an <= w_clearDisplay;
 --set switches/connect
 reg_sw <= sw;
 
+--leds to cycle
+--output <= wire
+led(3 downto 0) <= w_o_cycle;
 
 
 

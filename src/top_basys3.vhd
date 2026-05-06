@@ -234,6 +234,7 @@ reg_sw <= sw;
 
 
 
+
 --PROCESS
 process (w_o_cycle(1))
     begin

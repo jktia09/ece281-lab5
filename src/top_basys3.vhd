@@ -79,9 +79,17 @@ architecture top_basys3_arch of top_basys3 is
     --clearDisplay mux
     signal w_clearDisplay   :   STD_LOGIC_VECTOR (3 downto 0);
     
+    signal w_i_adv : std_logic;
     
   
     -- component declarations
+component button_debounce is
+	Port(	clk: in  STD_LOGIC;
+			reset : in  STD_LOGIC;
+			button: in STD_LOGIC;
+			action: out STD_LOGIC);
+end component;
+
 component controller_fsm is
     port ( i_reset : in STD_LOGIC;
            i_adv : in STD_LOGIC;
@@ -150,10 +158,18 @@ end component clock_divider;
 
 begin
 	-- PORT MAPS ----------------------------------------
+button_debounce_inst: button_debounce
+   	port map (	
+   	    clk => clk,
+		reset => btnU,
+		button => btnC,
+		action => w_i_adv
+);
+        
 controller_fsm_inst : controller_fsm
     port map (
         i_reset => btnU,
-        i_adv => btnC,
+        i_adv => w_i_adv,
         o_cycle => w_o_cycle
 );
 	
